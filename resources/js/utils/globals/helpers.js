@@ -1,22 +1,5 @@
 import { usePage } from "@inertiajs/inertia-react";
 
-export const ageCalculateFromDate = dateString => {
-    if (dateString === "") {
-        return 0;
-    }
-
-    const dob = new Date(dateString);
-    const now = new Date();
-    let age = now.getFullYear() - dob.getFullYear();
-    const month = now.getMonth() - dob.getMonth();
-
-    if (month < 0 || (month === 0 && now.getDate() < dob.getDate())) {
-        age--;
-    }
-
-    return age;
-};
-
 export const serializeQuery = (obj, prefix) => {
     var str = [],
         p;

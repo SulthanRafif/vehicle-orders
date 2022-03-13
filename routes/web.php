@@ -3,7 +3,9 @@
 use App\Enums\RoleType;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleOrderController;
 use App\Models\VehicleOrder;
 use Illuminate\Support\Facades\Route;
@@ -38,9 +40,19 @@ Route::middleware(['auth', 'role:' . RoleType::ADMIN . '|' . RoleType::PENYETUJU
     Route::resource('/vehicle-orders', VehicleOrderController::class)->except('show');
     Route::put('/vehicle-orders/{vehicle_order}/update-approval-status', [VehicleOrderController::class, 'updateApprovalStatus'])->name('vehicle-orders.update-approval-status');
 
+    // File Upload
+    Route::get('/file-uploads', [FileUploadController::class, 'create'])->name('file-uploads.create');
+    Route::post('/file-uploads', [FileUploadController::class, 'create'])->name('file-uploads.store');
+
     // ADMIN //
     Route::middleware(['role:' . RoleType::ADMIN])->group(function () {
+        // Users
         Route::resource('/users', UserController::class)->except('show');
-        Route::get('/vehicle-orders/export', [VehicleOrderController::class, 'export'])->name('vehicle-orders.export');
+
+        // Vehicle Orders Export Excel
+        Route::post('/vehicle-orders/export', [VehicleOrderController::class, 'export'])->name('vehicle-orders.export');
+
+        // Vehicles
+        Route::resource('/vehicles', VehicleController::class);
     });
 });

@@ -7,11 +7,14 @@ use App\Http\Resources\VehicleOrder\VehicleOrderIndexResource;
 use App\Http\Resources\VehicleOrder\VehicleOrderEditResource;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\VehicleDetail;
 use App\Models\VehicleOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class VehicleOrderController extends Controller
 {
@@ -22,7 +25,7 @@ class VehicleOrderController extends Controller
             ->latest()
             ->paginate();
 
-        return Inertia::render('VehicleOrder/Index', [
+        return Inertia::render('VehicleOrders/Index', [
             'vehicleOrders' => VehicleOrderIndexResource::collection($modelsVehicleOrder),
             'propSearch' => $request->search,
             'propOrderDate' => $request->date,
@@ -41,7 +44,7 @@ class VehicleOrderController extends Controller
                 $q->where('name', 'penyetuju_dua');
             })->get();
 
-        return Inertia::render('VehicleOrder/Create', [
+        return Inertia::render('VehicleOrders/Create', [
             'vehicles' => $vehicles,
             'penyetujuSatu' => $penyetuju_satu,
             'penyetujuDua' => $penyetuju_dua,
@@ -86,7 +89,7 @@ class VehicleOrderController extends Controller
                 $q->where('name', 'penyetuju_dua');
             })->get();
 
-        return Inertia::render('VehicleOrder/Edit', [
+        return Inertia::render('VehicleOrders/Edit', [
             'vehicles' => $vehicles,
             'penyetujuSatu' => $penyetuju_satu,
             'penyetujuDua' => $penyetuju_dua,
@@ -136,10 +139,14 @@ class VehicleOrderController extends Controller
                 'updated_by' => Auth::id(),
             ]);
         } else {
-            $vehicleOrder->update([
-                'approval_two_status' => true,
-                'updated_by' => Auth::id()
-            ]);
+            DB::transaction(function () use ($vehicleOrder) {
+                $vehicleOrder->update([
+                    'approval_two_status' => true,
+                    'updated_by' => Auth::id()
+                ]);
+
+                VehicleDetail::where('vehicle_id', $vehicleOrder->vehicle->id)->decrement('qty', 1);
+            });
         }
 
         return redirect()
@@ -147,8 +154,8 @@ class VehicleOrderController extends Controller
             ->with('success', 'Persetujuan Berhasil Dilakukan.');
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new VehicleOrderExport, 'vehicle-orders.csv');
+        return Excel::download(new VehicleOrderExport($request), 'vehicle-order-reports-' . Str::random() . '.csv');
     }
 }

@@ -55,8 +55,6 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        dd($user);
-
         return Inertia::render('Users/Edit', [
             'user' => new UserEditResource($user),
             'roles' => Role::all()

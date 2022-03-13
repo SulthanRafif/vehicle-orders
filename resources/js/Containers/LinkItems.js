@@ -17,10 +17,18 @@ export const LinkItems = [
         roles: [RoleType.admin]
     },
     {
+        name: "Data Kendaraan",
+        icon: FiDatabase,
+        urlPath: "/vehicles",
+        isExact: false,
+        roles: [RoleType.admin]
+    },
+    {
         name: "Data Pemesanan Kendaraan",
         icon: FiDatabase,
         urlPath: "/vehicle-orders",
         isExact: false,
         roles: [RoleType.admin, RoleType.penyetujuSatu, RoleType.penyetujuDua]
-    }
+    },
+
 ]

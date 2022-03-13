@@ -16,13 +16,15 @@ class VehicleOrderIndexResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'vehicle_id' => $this->vehicle->id,
             'customer_name' => $this->customer_name,
+            'driver_name' => $this->driver_name,
+            'vehicle_id' => $this->vehicle->id,
             'vehicle_name' => $this->vehicle->name,
             'created_by' => $this->createdBy->name,
+            'updated_by_id' => $this->updatedBy->id,
             'updated_by' => optional($this->updatedBy)->name,
-            'approval_one' => $this->approvalOne->name,
-            'approval_two' => $this->approvalTwo->name,
+            'approval_one_name' => $this->approvalOne->name,
+            'approval_two_name' => $this->approvalTwo->name,
             'approval_one_status' => $this->approval_one_status,
             'approval_two_status' => $this->approval_two_status,
             'order_date' => $this->order_date,

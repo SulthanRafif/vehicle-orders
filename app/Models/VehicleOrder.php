@@ -18,6 +18,7 @@ class VehicleOrder extends Model
         'updated_by',
         'order_date',
         'customer_name',
+        'driver_name',
         'approval_one_status',
         'approval_two_status',
     ];
@@ -52,6 +53,7 @@ class VehicleOrder extends Model
         return $query->when(!empty($search), function (Builder $query) use ($search) {
             return $query
                 ->where('customer_name', 'like', "%{$search}%")
+                ->orWhere('driver_name', 'like', "%{$search}%")
                 ->orWhereHas('vehicle', function (Builder $query) use ($search) {
                     return $query->where('name', 'like', "%{$search}%");
                 })

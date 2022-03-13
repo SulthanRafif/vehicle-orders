@@ -34,6 +34,7 @@ class VehicleOrderFactory extends Factory
                 $q->where('name', 'penyetuju_dua');
             })->pluck('id')->random(),
             'customer_name' => $this->faker->name(),
+            'driver_name' => $this->faker->name(),
             'order_date' => Carbon::now()->format('Y-m-d'),
         ];
     }

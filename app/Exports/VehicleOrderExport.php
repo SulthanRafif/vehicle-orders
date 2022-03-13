@@ -2,16 +2,23 @@
 
 namespace App\Exports;
 
-use App\Models\VehicleOrder;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class VehicleOrderExport implements FromCollection
+class VehicleOrderExport implements FromView, ShouldAutoSize
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function collection()
+    protected $data;
+
+    public function __construct($data)
     {
-        return VehicleOrder::all();
+        $this->data = $data->request->all();
+    }
+
+    public function view(): View
+    {
+        return view('exports.vehicle-order-reports', [
+            'data' => $this->data
+        ]);
     }
 }
