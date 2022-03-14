@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
 
         Vehicle::factory(5)->create()->each(function ($vehicle) {
-            $vehicle->vehicleDetails()
+            $vehicle->vehicleDetail()
                 ->saveMany(
                     VehicleDetail::factory(1)->make()
                 );
