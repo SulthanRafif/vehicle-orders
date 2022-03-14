@@ -12,7 +12,7 @@ class VehicleOrderExport implements FromView, ShouldAutoSize
 
     public function __construct($data)
     {
-        $this->data = $data->request->all();
+        $this->data = $data;
     }
 
     public function view(): View

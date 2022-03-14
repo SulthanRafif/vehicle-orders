@@ -13,14 +13,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($data['vehicleOrders'] as $datum)
+        @foreach($data as $datum)
         <tr>
             <td>{{ $datum['id'] }}</td>
             <td>{{ date('d-m-Y', strtotime($datum['created_at'])) }}</td>
-            <td>{{ $datum['created_by'] }}</td>
-            <td>{{ $datum['vehicle_name'] }}</td>
+            <td>{{ $datum['created_by']['name'] }}</td>
+            <td>{{ $datum['vehicle']['name'] }}</td>
             <td>{{ $datum['customer_name'] }}</td>
-            <td>{{ $datum['approval_one_name'] }}</td>
+            <td>{{ $datum['approval_one']['name'] }}</td>
             <td>
                 @if($datum['approval_one_status'] === 0)
                 BELUM DISETUJUI
@@ -28,7 +28,7 @@
                 SUDAH DISETUJUI
                 @endif
             </td>
-            <td>{{ $datum['approval_two_name'] }}</td>
+            <td>{{ $datum['approval_two']['name'] }}</td>
             <td>
                 @if($datum['approval_two_status'] === 0)
                 BELUM DISETUJUI

@@ -6,7 +6,7 @@ import TableRowAction from "../../Components/TableRowAction";
 import TableFilterDate from "../../Components/TableFilterDate";
 import TableSearch from "../../Components/TableSearch";
 import { Inertia } from "@inertiajs/inertia";
-import { can, RoleType, serializeQuery } from '../../utils/globals/helpers';
+import { can, RoleType } from '../../utils/globals/helpers';
 
 import {
     HStack,
@@ -34,16 +34,6 @@ const Index = () => {
         Inertia.put(route("vehicle-orders.update-approval-status", vehicleOrderId))
     }
 
-    const { post } = useForm({
-        vehicleOrders: vehicleOrders.data
-    })
-
-    const handleExportExcel = (event) => {
-        event.preventDefault();
-
-        post(route("vehicle-orders.export"));
-    }
-
     return (
         <Layout
             title="Data Pemesanan Kendaraan"
@@ -68,10 +58,13 @@ const Index = () => {
                                 Tambah Data
                             </Button>
                             <Button
+                                type="submit"
                                 colorScheme="orange"
                                 color="white"
-                                onClick={(event) => handleExportExcel(event)}
                                 _hover={{ color: "black" }}
+                                href={route("vehicle-orders.export")}
+                                as="a"
+                                target={`_blank`}
                             >
                                 Export Excel
                             </Button>

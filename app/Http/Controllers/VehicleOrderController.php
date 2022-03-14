@@ -154,8 +154,10 @@ class VehicleOrderController extends Controller
             ->with('success', 'Persetujuan Berhasil Dilakukan.');
     }
 
-    public function export(Request $request)
+    public function export()
     {
-        return Excel::download(new VehicleOrderExport($request), 'vehicle-order-reports-' . Str::random() . '.csv');
+        $vehicle_orders = VehicleOrder::with('createdBy')->with('vehicle')->with('approvalOne')->with('approvalTwo')->get()->toArray();
+
+        return Excel::download(new VehicleOrderExport($vehicle_orders), 'vehicle-order-reports-' . Str::random() . '.xlsx');
     }
 }

@@ -50,7 +50,7 @@ Route::middleware(['auth', 'role:' . RoleType::ADMIN . '|' . RoleType::PENYETUJU
         Route::resource('/users', UserController::class)->except('show');
 
         // Vehicle Orders Export Excel
-        Route::post('/vehicle-orders/export', [VehicleOrderController::class, 'export'])->name('vehicle-orders.export');
+        Route::get('/vehicle-orders/export', [VehicleOrderController::class, 'export'])->name('vehicle-orders.export');
 
         // Vehicles
         Route::resource('/vehicles', VehicleController::class);

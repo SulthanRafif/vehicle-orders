@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "@babel/preset-react": "^7.13.13",
+        "@chakra-ui/react": "^1.8.6",
         "@popperjs/core": "^2.10.2",
         "axios": "^0.25.0",
         "bootstrap": "^5.1.3",
@@ -24,12 +25,14 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
-        "@chakra-ui/react": "^1.8.6",
+        "@emotion/react": "^11.8.2",
         "@emotion/serialize": "^1.0.2",
+        "@emotion/styled": "^11.8.1",
         "@fontsource/inter": "^4.5.4",
         "@inertiajs/inertia": "^0.11.0",
         "@inertiajs/inertia-react": "^0.8.0",
         "@inertiajs/progress": "^0.2.7",
+        "framer-motion": "^3.10.6",
         "react-datepicker": "^4.7.0",
         "react-helmet": "^6.1.0",
         "react-icons": "^4.3.1",
