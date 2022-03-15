@@ -1,13 +1,14 @@
 import TextInput from '../../Components/TextInput';
 import Layout from '../../Containers/Layout';
-import { Box, Button, HStack, SimpleGrid } from "@chakra-ui/react";
+import { FormLabel, FormControl, Box, Button, HStack, SimpleGrid } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
 import { useForm, usePage } from "@inertiajs/inertia-react";
 import React from "react";
 
 const Edit = () => {
-    const { vehicle } = usePage().props;
-    const { data, setData, put, processing, errors } = useForm({
+    const { vehicle, defaultCarImage } = usePage().props;
+    const imageRef = React.useRef()
+    const { data, setData, processing, errors } = useForm({
 
         name: vehicle.data.name || "",
         qty: vehicle.data.vehicle_details.qty || "",
@@ -15,12 +16,30 @@ const Edit = () => {
         service_schedule: vehicle.data.vehicle_details.service_schedule || "",
     });
 
-    // console.log(vehicle);
+    console.log(vehicle.data.vehicle_image.image);
 
     const handleSubmit = e => {
         e.preventDefault();
-        put(route("vehicles.update", vehicle.data.id));
+        const formData = new FormData();
+        for (let key in data) {
+            formData.append(key, data[key])
+        }
+        formData.append("image", imageRef.current.files[0])
+        formData.append("_method", "put")
+        Inertia.post(route("vehicles.update", vehicle.data.id), formData)
     };
+
+    const [image, setImage] = React.useState(base_url + "/" +vehicle.data.vehicle_image.image);
+    const handleUpload = (e) => {
+        e.preventDefault()
+        let reader = new FileReader()
+        reader.onloanded = () => {
+            if (reader.readyState === 2) {
+                setImage(reader.result)
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
+    }
 
     return (
         <Layout
@@ -72,6 +91,28 @@ const Edit = () => {
                             errors={errors.service_schedule}
                             onChange={e => setData("service_schedule", e.target.value)}
                         />
+
+                        <img src={image ? (image) : (defaultCarImage)} alt="Gambar Kendaraan" width="200" />
+
+                        <FormControl
+                            isRequired={true}
+                            width="full"
+                        >
+                            <FormLabel htmlFor="image" fontWeight="bold">
+                                Gambar Mobil
+                            </FormLabel>
+
+                            <input
+                                type="file"
+                                id="image"
+                                name="image"
+                                bg="white"
+                                width="full"
+                                ref={imageRef}
+                                className="mt-4"
+                                onChange={handleUpload}
+                            />
+                        </FormControl>
                     </SimpleGrid>
 
                     <HStack mt={10}>

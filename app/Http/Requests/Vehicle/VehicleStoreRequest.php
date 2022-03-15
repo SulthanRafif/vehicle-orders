@@ -28,7 +28,7 @@ class VehicleStoreRequest extends FormRequest
             'qty' => ['required', 'integer'],
             'fuel_consumption' => ['required', 'integer'],
             'service_schedule' => ['required'],
-            // 'image' => 'required | mimes:jpeg,jpg,png | max:1000',
+            'image' => 'required | mimes:jpeg,jpg,png | max:1000',
         ];
     }
 }
