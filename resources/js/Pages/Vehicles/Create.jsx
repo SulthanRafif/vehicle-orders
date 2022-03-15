@@ -1,25 +1,46 @@
 import TextInput from '../../Components/TextInput';
 import Layout from '../../Containers/Layout';
-import { Box, Button, HStack, SimpleGrid } from "@chakra-ui/react";
+import { FormLabel, FormControl, Box, Button, HStack, SimpleGrid } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
-import { useForm } from "@inertiajs/inertia-react";
+import { useForm, usePage } from "@inertiajs/inertia-react";
 import React from "react";
 
 const Create = () => {
+    const { defaultCarImage } = usePage().props;
 
-    const { data, setData, post, processing, errors } = useForm({
+    const imageRef = React.useRef()
+
+    const { data, setData, processing, errors } = useForm({
         name: "",
         qty: "",
         fuel_consumption: "",
         service_schedule: "",
-        // image: "",
     });
 
     const handleSubmit = e => {
         e.preventDefault();
-        post(route("vehicles.store"));
+        const formData = new FormData();
+        for (let key in data) {
+            formData.append(key, data[key])
+        }
+        formData.append("image", imageRef.current.files[0])
+
+        Inertia.post(route("vehicles.store"), formData)
     };
 
+    const [image, setImage] = React.useState();
+    const handleUpload = (e) => {
+        e.preventDefault()
+        let reader = new FileReader()
+        reader.onloadend = () => {
+            if (reader.readyState === 2) {
+                setImage(reader.result)
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
+    }
+
+    console.log(image);
 
     return (
         <Layout
@@ -30,10 +51,11 @@ const Create = () => {
                 bg="white"
                 rounded="lg"
                 shadow="sm"
-                w="3xl"
+                w="6xl"
             >
                 <form
                     onSubmit={handleSubmit}
+                    encType="multipart/form-data"
                 >
                     <SimpleGrid
                         columns={2}
@@ -46,15 +68,6 @@ const Create = () => {
                             errors={errors.name}
                             onChange={e => setData("name", e.target.value)}
                         />
-
-                        {/* <TextInput
-                            name="image"
-                            type="file"
-                            label="Gambar Kendaraan"
-                            value={data.image}
-                            errors={errors.image}
-                            onChange={e => setData("image", e.target.files[0])}
-                        /> */}
 
                         <TextInput
                             name="qty"
@@ -82,6 +95,28 @@ const Create = () => {
                             errors={errors.service_schedule}
                             onChange={e => setData("service_schedule", e.target.value)}
                         />
+
+                        <img src={image ? (image) : (defaultCarImage)} alt="Gambar Kendaraan" width="200" />
+
+                        <FormControl
+                            isRequired={true}
+                            width="full"
+                        >
+                            <FormLabel htmlFor="image" fontWeight="bold">
+                                Gambar Mobil
+                            </FormLabel>
+
+                            <input
+                                type="file"
+                                id="image"
+                                name="image"
+                                bg="white"
+                                width="full"
+                                ref={imageRef}
+                                className="mt-4"
+                                onChange={handleUpload}
+                            />
+                        </FormControl>
                     </SimpleGrid>
 
                     <HStack mt={10}>

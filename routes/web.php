@@ -40,10 +40,6 @@ Route::middleware(['auth', 'role:' . RoleType::ADMIN . '|' . RoleType::PENYETUJU
     Route::resource('/vehicle-orders', VehicleOrderController::class)->except('show');
     Route::put('/vehicle-orders/{vehicle_order}/update-approval-status', [VehicleOrderController::class, 'updateApprovalStatus'])->name('vehicle-orders.update-approval-status');
 
-    // File Upload
-    Route::get('/file-uploads', [FileUploadController::class, 'create'])->name('file-uploads.create');
-    Route::post('/file-uploads', [FileUploadController::class, 'create'])->name('file-uploads.store');
-
     // ADMIN //
     Route::middleware(['role:' . RoleType::ADMIN])->group(function () {
         // Users

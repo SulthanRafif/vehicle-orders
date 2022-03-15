@@ -20,6 +20,7 @@ class VehicleIndexResource extends JsonResource
             'created_at' => $this->created_at->translatedFormat('d-M-Y'),
             'updated_at' => $this->updated_at->translatedFormat('d-M-Y'),
             'vehicle_details' => $this->vehicleDetail,
+            'vehicle_image' => $this->imageVehicle,
         ];
     }
 }

@@ -54,7 +54,8 @@ class HandleInertiaRequests extends Middleware
                 ];
             },
             'appName' => config('app.name'),
-            'logoUrl' => asset('img/logo-web.png')
+            'logoUrl' => asset('img/logo-web.png'),
+            'defaultCarImage' => asset('img/car-image.png')
         ]);
     }
 

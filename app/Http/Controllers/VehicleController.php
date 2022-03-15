@@ -31,16 +31,13 @@ class VehicleController extends Controller
 
     public function store(VehicleStoreRequest $request)
     {
-        // dd($request->all());
-
-        // $image_path = '';
-
-        // if ($request->hasFile('image')) {
-        //     $image_path = $request->file('image')->store('image', 'public');
-        // }
+        $extFile = $request->image->getClientOriginalExtension();
+        $namaFile = 'vehicle' . time() . "." . $extFile;
+        $image = $request->image->move('images', $namaFile);
 
         DB::transaction(function () use (
             $request,
+            $image
         ) {
             $vehicle = Vehicle::create([
                 'name' => $request->name,
@@ -48,9 +45,9 @@ class VehicleController extends Controller
 
             $vehicle->vehicleDetail()->create(array_merge($request->only('qty', 'fuel_consumption', 'service_schedule')));
 
-            // $vehicle->imageVehicle()->create([
-            //     'image' => $image_path,
-            // ]);
+            $vehicle->imageVehicle()->create([
+                'image' => $image,
+            ]);
 
             return $vehicle;
         });

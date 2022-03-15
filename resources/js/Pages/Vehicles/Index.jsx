@@ -8,6 +8,7 @@ import {
     Box,
     Button,
     Flex,
+    Img,
     Table,
     Tbody,
     Td,
@@ -24,8 +25,6 @@ const Index = () => {
         data,
         meta: { links }
     } = vehicles;
-
-    console.log(vehicles);
 
     return (
         <Layout
@@ -58,6 +57,7 @@ const Index = () => {
                         <Tr>
                             <Th>No</Th>
                             <Th>Nama Kendaraan</Th>
+                            <Th>Gambar Kendaraan</Th>
                             <Th>Jumlah Unit</Th>
                             <Th>Konsumsi Bahan Bakar</Th>
                             <Th>Tanggal Service</Th>
@@ -70,6 +70,7 @@ const Index = () => {
                                 <Tr key={index + 1}>
                                     <Td>{index + 1}</Td>
                                     <Td>{vehicle.name}</Td>
+                                    <Td>{vehicle.vehicle_image ? (<img src={vehicle.vehicle_image.image} width="200" />) : (<div>-</div>)}</Td>
                                     <Td>{vehicle.vehicle_details.qty} Unit</Td>
                                     <Td>{vehicle.vehicle_details.fuel_consumption} Galon</Td>
                                     <Td>{vehicle.vehicle_details.service_schedule}</Td>
