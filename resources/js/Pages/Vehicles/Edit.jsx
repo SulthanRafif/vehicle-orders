@@ -15,7 +15,7 @@ const Edit = () => {
         service_schedule: vehicle.data.vehicle_details.service_schedule || "",
     });
 
-    console.log(vehicle);
+    // console.log(vehicle);
 
     const handleSubmit = e => {
         e.preventDefault();
