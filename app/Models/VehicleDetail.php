@@ -14,6 +14,7 @@ class VehicleDetail extends Model
         'qty',
         'fuel_consumption',
         'service_schedule',
+        'number_of_usage'
     ];
 
     public function vehicle()

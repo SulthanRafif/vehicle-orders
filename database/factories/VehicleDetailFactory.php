@@ -19,7 +19,7 @@ class VehicleDetailFactory extends Factory
     {
         return [
             'qty' => rand(1, 20),
-            'fuel_consumption' => rand(1, 25), // Per Galon
+            'fuel_consumption' => rand(1, 25), // Per Liter
             'service_schedule' => Carbon::today()->subDays(rand(0, 365)),
         ];
     }

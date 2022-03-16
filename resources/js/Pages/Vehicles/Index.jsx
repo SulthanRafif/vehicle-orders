@@ -59,6 +59,7 @@ const Index = () => {
                             <Th>Nama Kendaraan</Th>
                             <Th>Gambar Kendaraan</Th>
                             <Th>Jumlah Unit</Th>
+                            <Th>Jumlah Pemakaian</Th>
                             <Th>Konsumsi Bahan Bakar</Th>
                             <Th>Tanggal Service</Th>
                             <Th>Action</Th>
@@ -72,7 +73,8 @@ const Index = () => {
                                     <Td>{vehicle.name}</Td>
                                     <Td>{vehicle.vehicle_image ? (<img src={vehicle.vehicle_image.image} width="200" />) : (<div>-</div>)}</Td>
                                     <Td>{vehicle.vehicle_details.qty} Unit</Td>
-                                    <Td>{vehicle.vehicle_details.fuel_consumption} Galon</Td>
+                                    <Td>{vehicle.vehicle_details.number_of_usage} Kali</Td>
+                                    <Td>{vehicle.vehicle_details.fuel_consumption} Liter</Td>
                                     <Td>{vehicle.vehicle_details.service_schedule}</Td>
                                     <Td>
                                         <TableRowAction id={vehicle.id} routeName="vehicles" isShow={false} />
