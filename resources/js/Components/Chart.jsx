@@ -4,9 +4,7 @@ import { Chart as ChartJS } from 'chart.js/auto'
 import { usePage } from '@inertiajs/inertia-react';
 
 const Chart = ({ marginTop }) => {
-    const { vehicle_name, vehicle_usage_number, vehicle_qty, vehicle_fuel_consumption } = usePage().props;
-
-    console.log(vehicle_qty)
+    const { vehicle_name, vehicle_usage_number, vehicle_fuel_consumption } = usePage().props;
 
     const vehicleNameLabels = vehicle_name
     const vehicleNumberData = {
@@ -14,18 +12,6 @@ const Chart = ({ marginTop }) => {
         datasets: [{
             label: 'Jumlah Pemakaian Untuk Setiap Kendaraan',
             data: vehicle_usage_number,
-            borderWidth: 1,
-            backgroundColor: [
-                "#FFA500"
-            ]
-        }]
-    };
-
-    const vehicleQtyData = {
-        labels: vehicleNameLabels,
-        datasets: [{
-            label: 'Jumlah Unit Untuk Setiap Kendaraan',
-            data: vehicle_qty,
             borderWidth: 1,
             backgroundColor: [
                 "#FFA500"
@@ -55,15 +41,6 @@ const Chart = ({ marginTop }) => {
                             <Bar
                                 style={{ marginBottom: 50 }}
                                 data={vehicleNumberData}
-                            />
-                        </div>
-                    </div>
-                    <div className="chart-container flex flex-col p-3 rounded-lg h-full w-full bg-white h-1/2 shadow-lg p-4 mb-3">
-                        <h4 className="my-2 text-xl font-semibold">Jumlah Unit Untuk Setiap Kendaraan</h4>
-                        <div className="lg:w-1/2 w-full self-center">
-                            <Bar
-                                style={{ marginBottom: 50 }}
-                                data={vehicleQtyData}
                             />
                         </div>
                     </div>

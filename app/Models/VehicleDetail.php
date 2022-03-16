@@ -11,7 +11,6 @@ class VehicleDetail extends Model
 
     protected $fillable = [
         'vehicle_id',
-        'qty',
         'fuel_consumption',
         'service_schedule',
         'number_of_usage'

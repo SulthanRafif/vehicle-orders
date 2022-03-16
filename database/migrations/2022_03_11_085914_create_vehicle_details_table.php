@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('vehicle_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vehicle_id')->constrained()->cascadeOnDelete();
-            $table->integer('qty');
             $table->integer('fuel_consumption');
             $table->date('service_schedule');
             $table->timestamps();

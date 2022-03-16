@@ -25,7 +25,6 @@ class VehicleStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'qty' => ['required', 'integer'],
             'fuel_consumption' => ['required', 'integer'],
             'service_schedule' => ['required'],
             'image' => 'required | mimes:jpeg,jpg,png | max:1000',

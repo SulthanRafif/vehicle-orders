@@ -145,8 +145,6 @@ class VehicleOrderController extends Controller
                     'updated_by' => Auth::id()
                 ]);
 
-                VehicleDetail::where('vehicle_id', $vehicleOrder->vehicle->id)->decrement('qty', 1);
-
                 VehicleDetail::where('vehicle_id', $vehicleOrder->vehicle->id)->increment('number_of_usage', 1);
             });
         }

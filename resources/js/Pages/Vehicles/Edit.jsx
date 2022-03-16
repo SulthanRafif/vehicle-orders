@@ -11,7 +11,6 @@ const Edit = () => {
     const { data, setData, processing, errors } = useForm({
 
         name: vehicle.data.name || "",
-        qty: vehicle.data.vehicle_details.qty || "",
         fuel_consumption: vehicle.data.vehicle_details.fuel_consumption || "",
         service_schedule: vehicle.data.vehicle_details.service_schedule || "",
     });
@@ -53,7 +52,7 @@ const Edit = () => {
                 bg="white"
                 rounded="lg"
                 shadow="sm"
-                w="3xl"
+                w="6xl"
             >
                 <form onSubmit={handleSubmit}>
                     <SimpleGrid
@@ -69,17 +68,8 @@ const Edit = () => {
                         />
 
                         <TextInput
-                            name="qty"
-                            label="Jumlah Unit Kendaraan"
-                            type="number"
-                            value={data.qty}
-                            errors={errors.qty}
-                            onChange={e => setData("qty", e.target.value)}
-                        />
-
-                        <TextInput
                             name="fuel_consumption"
-                            label="Jumlah Konsumsi Bahan Bakar (galon)"
+                            label="Jumlah Konsumsi Bahan Bakar (Liter)"
                             type="number"
                             value={data.fuel_consumption}
                             errors={errors.fuel_consumption}
@@ -94,6 +84,8 @@ const Edit = () => {
                             errors={errors.service_schedule}
                             onChange={e => setData("service_schedule", e.target.value)}
                         />
+
+                        <div />
 
                         <img src={image ? (image) : (defaultCarImage)} alt="Gambar Kendaraan" width="200" />
 

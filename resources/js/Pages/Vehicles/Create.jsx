@@ -12,7 +12,6 @@ const Create = () => {
 
     const { data, setData, processing, errors } = useForm({
         name: "",
-        qty: "",
         fuel_consumption: "",
         service_schedule: "",
     });
@@ -70,17 +69,8 @@ const Create = () => {
                         />
 
                         <TextInput
-                            name="qty"
-                            label="Jumlah Unit Kendaraan"
-                            type="number"
-                            value={data.qty}
-                            errors={errors.qty}
-                            onChange={e => setData("qty", e.target.value)}
-                        />
-
-                        <TextInput
                             name="fuel_consumption"
-                            label="Jumlah Konsumsi Bahan Bakar (galon)"
+                            label="Jumlah Konsumsi Bahan Bakar (Liter)"
                             type="number"
                             value={data.fuel_consumption}
                             errors={errors.fuel_consumption}
@@ -95,6 +85,8 @@ const Create = () => {
                             errors={errors.service_schedule}
                             onChange={e => setData("service_schedule", e.target.value)}
                         />
+
+                        <div />
 
                         <img src={image ? (image) : (defaultCarImage)} alt="Gambar Kendaraan" width="200" />
 
@@ -139,7 +131,7 @@ const Create = () => {
                     </HStack>
                 </form>
             </Box>
-        </Layout>
+        </Layout >
     )
 }
 

@@ -43,7 +43,7 @@ class VehicleController extends Controller
                 'name' => $request->name,
             ]);
 
-            $vehicle->vehicleDetail()->create(array_merge($request->only('qty', 'fuel_consumption', 'service_schedule')));
+            $vehicle->vehicleDetail()->create(array_merge($request->only('fuel_consumption', 'service_schedule')));
 
             $vehicle->imageVehicle()->create([
                 'image' => $image,
@@ -68,7 +68,7 @@ class VehicleController extends Controller
     {
         $image = null;
 
-        if (is_object($request->vehicle)) {
+        if (is_object($request->image)) {
             $extFile = $request->image->getClientOriginalExtension();
             $namaFile = 'vehicle' . time() . "." . $extFile;
             $image = $request->image->move('images', $namaFile);
@@ -76,7 +76,7 @@ class VehicleController extends Controller
 
         DB::transaction(function () use ($request, $vehicle, $image) {
             $vehicle->update(array_merge($request->only('name')));
-            $vehicle->vehicleDetail()->update(array_merge($request->only('qty', 'fuel_consumption', 'service_schedule')));
+            $vehicle->vehicleDetail()->update(array_merge($request->only('fuel_consumption', 'service_schedule')));
 
             if ($image) {
                 if ($vehicle->imageVehicle()->get()->isEmpty()) {
