@@ -21,7 +21,7 @@ class Vehicle extends Model
 
     public function vehicleOrders()
     {
-        return $this->hasMany(VehicleOrders::class, 'vehicle_id');
+        return $this->hasMany(VehicleOrder::class, 'vehicle_id');
     }
 
     public function vehicleDetail()

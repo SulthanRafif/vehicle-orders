@@ -61,8 +61,8 @@ const Index = () => {
                     <Thead>
                         <Tr>
                             <Th>No</Th>
-                            <Th>Nama Pengemudi}</Th>
-                            <Th>Tanggal Masuk Pengemudi}</Th>
+                            <Th>Nama Pengemudi</Th>
+                            <Th>Tanggal Masuk Pengemudi</Th>
                             <Th>Action</Th>
                         </Tr>
                     </Thead>

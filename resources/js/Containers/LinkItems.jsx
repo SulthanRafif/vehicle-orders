@@ -37,5 +37,12 @@ export const LinkItems = [
         isExact: false,
         roles: [RoleType.admin, RoleType.penyetujuSatu, RoleType.penyetujuDua]
     },
+    {
+        name: "Data Pengembalian Kendaraan",
+        icon: FiDatabase,
+        urlPath: "/vehicle-order-statuses",
+        isExact: false,
+        roles: [RoleType.admin]
+    },
 
 ]

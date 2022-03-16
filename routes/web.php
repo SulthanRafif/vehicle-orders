@@ -7,6 +7,7 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleOrderController;
+use App\Http\Controllers\VehicleOrderStatusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,5 +53,9 @@ Route::middleware(['auth', 'role:' . RoleType::ADMIN . '|' . RoleType::PENYETUJU
 
         // Drivers
         Route::resource('/drivers', DriverController::class)->except('show');
+
+        // Vehicle Order Statuses
+        Route::get('/vehicle-order-statuses', [VehicleOrderStatusController::class, 'index'])->name('vehicle-order-statuses.index');
+        Route::put('/vehicle-order-statuses/{vehicle_order}/update-return-status', [VehicleOrderStatusController::class, 'updateReturnStatus'])->name('vehicle-order-statuses.update-return-status');
     });
 });

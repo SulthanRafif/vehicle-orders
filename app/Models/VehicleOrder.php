@@ -21,6 +21,7 @@ class VehicleOrder extends Model
         'driver_id',
         'approval_one_status',
         'approval_two_status',
+        'return_status',
     ];
 
     public function driver()

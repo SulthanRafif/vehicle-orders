@@ -39,7 +39,9 @@ class VehicleOrderController extends Controller
     public function create()
     {
         $driver_name = Driver::get();
-        $vehicles = Vehicle::get();
+        $vehicles = Vehicle::whereHas('vehicleOrders', function ($q) {
+            $q->where('return_status', false)->where('approval_two_status', false);
+        })->get();
         $penyetuju_satu =
             User::whereHas('roles', function ($q) {
                 $q->where('name', 'penyetuju_satu');
@@ -70,6 +72,7 @@ class VehicleOrderController extends Controller
             'created_by' => Auth::id(),
             'driver_id' => $request->driver_id,
             'updated_by' => Auth::id(),
+            'return_status' => 0,
         ]);
 
         return redirect()
@@ -111,6 +114,7 @@ class VehicleOrderController extends Controller
             'approval_two_status' => 0,
             'updated_by' => Auth::id(),
             'driver_id' => $request->driver_id,
+            'return_status' => 0,
         ]);
 
         return redirect()
