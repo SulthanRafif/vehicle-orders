@@ -66,17 +66,30 @@ class VehicleController extends Controller
 
     public function update(VehicleUpdateRequest $request, Vehicle $vehicle)
     {
-        $extFile = $request->image->getClientOriginalExtension();
-        $namaFile = 'vehicle' . time() . "." . $extFile;
-        $image = $request->image->move('images', $namaFile);
+        $image = null;
+
+        if (is_object($request->vehicle)) {
+            $extFile = $request->image->getClientOriginalExtension();
+            $namaFile = 'vehicle' . time() . "." . $extFile;
+            $image = $request->image->move('images', $namaFile);
+        }
 
         DB::transaction(function () use ($request, $vehicle, $image) {
             $vehicle->update(array_merge($request->only('name')));
             $vehicle->vehicleDetail()->update(array_merge($request->only('qty', 'fuel_consumption', 'service_schedule')));
 
-            $vehicle->imageVehicle()->updateOrCreate([
-                'image' => $image,
-            ]);
+            if ($image) {
+                if ($vehicle->imageVehicle()->get()->isEmpty()) {
+                    $vehicle->imageVehicle()->create([
+                        'image' => $image,
+                    ]);
+                } else {
+                    $vehicle->imageVehicle()->update([
+                        'image' => $image,
+                    ]);
+                }
+            }
+
             return $vehicle;
         });
 

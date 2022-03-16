@@ -3,7 +3,7 @@ import Layout from '../../Containers/Layout';
 import { FormLabel, FormControl, Box, Button, HStack, SimpleGrid } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
 import { useForm, usePage } from "@inertiajs/inertia-react";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Edit = () => {
     const { vehicle, defaultCarImage } = usePage().props;
@@ -16,8 +16,6 @@ const Edit = () => {
         service_schedule: vehicle.data.vehicle_details.service_schedule || "",
     });
 
-    console.log(vehicle.data.vehicle_image.image);
-
     const handleSubmit = e => {
         e.preventDefault();
         const formData = new FormData();
@@ -29,11 +27,16 @@ const Edit = () => {
         Inertia.post(route("vehicles.update", vehicle.data.id), formData)
     };
 
-    const [image, setImage] = React.useState(base_url + "/" +vehicle.data.vehicle_image.image);
+    const [image, setImage] = React.useState();
+
+    useEffect(() => {
+        vehicle.data.vehicle_image !== null ? setImage(base_url + "/" + vehicle.data.vehicle_image.image) : setImage()
+    }, [vehicle.data.vehicle_image])
+
     const handleUpload = (e) => {
         e.preventDefault()
         let reader = new FileReader()
-        reader.onloanded = () => {
+        reader.onloadend = () => {
             if (reader.readyState === 2) {
                 setImage(reader.result)
             }
