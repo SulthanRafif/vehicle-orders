@@ -3,6 +3,7 @@
 use App\Enums\RoleType;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleOrderController;
@@ -47,6 +48,9 @@ Route::middleware(['auth', 'role:' . RoleType::ADMIN . '|' . RoleType::PENYETUJU
         Route::get('/vehicle-orders/export', [VehicleOrderController::class, 'export'])->name('vehicle-orders.export');
 
         // Vehicles
-        Route::resource('/vehicles', VehicleController::class);
+        Route::resource('/vehicles', VehicleController::class)->except('show');
+
+        // Drivers
+        Route::resource('/drivers', DriverController::class)->except('show');
     });
 });

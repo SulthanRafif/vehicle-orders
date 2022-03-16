@@ -3,12 +3,12 @@ import Layout from "../../Containers/Layout";
 import Pagination from "../../Components/Pagination";
 import TableRowAction from "../../Components/TableRowAction";
 import TableSearch from "../../Components/TableSearch";
+import TableFilterDate from "../../Components/TableFilterDate";
 
 import {
     Box,
     Button,
-    Flex,
-    Img,
+    HStack,
     Table,
     Tbody,
     Td,
@@ -30,8 +30,13 @@ const Index = () => {
         <Layout
             title="Data Kendaraan"
         >
-            <Flex justify="space-between" mb="4">
+            <HStack
+                mt="2"
+                mb="4"
+                align={`end`}
+            >
                 <TableSearch />
+                <TableFilterDate label="Tanggal Masuk Kendaraan" />
                 <Button
                     as={Link}
                     colorScheme="orange"
@@ -41,7 +46,7 @@ const Index = () => {
                 >
                     Tambah Data
                 </Button>
-            </Flex>
+            </HStack>
 
             <Box
                 bg="white"
@@ -57,9 +62,11 @@ const Index = () => {
                         <Tr>
                             <Th>No</Th>
                             <Th>Nama Kendaraan</Th>
+                            <Th>Tipe Kendaraan</Th>
                             <Th>Gambar Kendaraan</Th>
                             <Th>Jumlah Pemakaian</Th>
                             <Th>Konsumsi Bahan Bakar</Th>
+                            <Th>Tanggal Masuk Kendaraan</Th>
                             <Th>Tanggal Service</Th>
                             <Th>Action</Th>
                         </Tr>
@@ -70,9 +77,11 @@ const Index = () => {
                                 <Tr key={index + 1}>
                                     <Td>{index + 1}</Td>
                                     <Td>{vehicle.name}</Td>
+                                    <Td>{vehicle.vehicle_details.vehicle_type}</Td>
                                     <Td>{vehicle.vehicle_image ? (<img src={vehicle.vehicle_image.image} width="200" />) : (<div>-</div>)}</Td>
                                     <Td>{vehicle.vehicle_details.number_of_usage} Kali</Td>
                                     <Td>{vehicle.vehicle_details.fuel_consumption} Liter</Td>
+                                    <Td>{vehicle.created_at}</Td>
                                     <Td>{vehicle.vehicle_details.service_schedule}</Td>
                                     <Td>
                                         <TableRowAction id={vehicle.id} routeName="vehicles" isShow={false} />

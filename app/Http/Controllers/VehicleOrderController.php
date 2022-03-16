@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Exports\VehicleOrderExport;
+use App\Http\Requests\Vehicle\VehicleUpdateRequest;
+use App\Http\Requests\VehicleOrder\VehicleOrderStoreRequest;
+use App\Http\Requests\VehicleOrder\VehicleOrderUpdateRequest;
 use App\Http\Resources\VehicleOrder\VehicleOrderIndexResource;
 use App\Http\Resources\VehicleOrder\VehicleOrderEditResource;
+use App\Models\Driver;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleDetail;
@@ -34,6 +38,7 @@ class VehicleOrderController extends Controller
 
     public function create()
     {
+        $driver_name = Driver::get();
         $vehicles = Vehicle::get();
         $penyetuju_satu =
             User::whereHas('roles', function ($q) {
@@ -48,19 +53,12 @@ class VehicleOrderController extends Controller
             'vehicles' => $vehicles,
             'penyetujuSatu' => $penyetuju_satu,
             'penyetujuDua' => $penyetuju_dua,
+            'driverName' => $driver_name,
         ]);
     }
 
-    public function store(Request $request)
+    public function store(VehicleOrderStoreRequest $request)
     {
-        $request->validate([
-            'vehicle_id' => ['required'],
-            'customer_name' => ['required'],
-            'approval_one' => ['required'],
-            'approval_two' => ['required'],
-            'order_date' => ['required']
-        ]);
-
         VehicleOrder::create([
             'vehicle_id' => $request->vehicle_id,
             'customer_name' => $request->customer_name,
@@ -70,6 +68,8 @@ class VehicleOrderController extends Controller
             'approval_one_status' => 0,
             'approval_two_status' => 0,
             'created_by' => Auth::id(),
+            'driver_id' => $request->driver_id,
+            'updated_by' => Auth::id(),
         ]);
 
         return redirect()
@@ -79,6 +79,7 @@ class VehicleOrderController extends Controller
 
     public function edit(VehicleOrder $vehicleOrder)
     {
+        $driver_name = Driver::get();
         $vehicles = Vehicle::get();
         $penyetuju_satu =
             User::whereHas('roles', function ($q) {
@@ -94,19 +95,12 @@ class VehicleOrderController extends Controller
             'penyetujuSatu' => $penyetuju_satu,
             'penyetujuDua' => $penyetuju_dua,
             'vehicleOrder' => new VehicleOrderEditResource($vehicleOrder),
+            'driverName' => $driver_name,
         ]);
     }
 
-    public function update(Request $request, VehicleOrder $vehicleOrder)
+    public function update(VehicleOrderUpdateRequest $request, VehicleOrder $vehicleOrder)
     {
-        $request->validate([
-            'vehicle_id' => ['required'],
-            'customer_name' => ['required'],
-            'approval_one' => ['required'],
-            'approval_two' => ['required'],
-            'order_date' => ['required']
-        ]);
-
         $vehicleOrder->update([
             'vehicle_id' => $request->vehicle_id,
             'customer_name' => $request->customer_name,
@@ -114,7 +108,9 @@ class VehicleOrderController extends Controller
             'approval_one' => $request->approval_one,
             'approval_one_status' => 0,
             'approval_two' => $request->approval_two,
-            'approval_two_status' => 0
+            'approval_two_status' => 0,
+            'updated_by' => Auth::id(),
+            'driver_id' => $request->driver_id,
         ]);
 
         return redirect()

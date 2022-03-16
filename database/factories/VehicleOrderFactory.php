@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Driver;
 use App\Models\User;
 use App\Models\Vehicle;
 use Carbon\Carbon;
@@ -33,8 +34,8 @@ class VehicleOrderFactory extends Factory
             'approval_two' => User::whereHas('roles', function ($q) {
                 $q->where('name', 'penyetuju_dua');
             })->pluck('id')->random(),
+            'driver_id' => Driver::pluck('id')->random(),
             'customer_name' => $this->faker->name(),
-            'driver_name' => $this->faker->name(),
             'order_date' => Carbon::now()->format('Y-m-d'),
         ];
     }

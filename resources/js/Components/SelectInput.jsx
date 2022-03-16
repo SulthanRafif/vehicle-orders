@@ -33,9 +33,9 @@ const SelectInput = ({
                 defaultValue={defaultValue}
                 {...props}
             >
-                {options.map(option => {
+                {options.map((option, index) => {
                     return (
-                        <option key={option.id} value={option.id}>
+                        <option key={index + 1} value={option.id}>
                             {option.name}
                         </option>
                     )

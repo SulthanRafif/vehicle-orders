@@ -17,7 +17,7 @@ class VehicleOrderIndexResource extends JsonResource
         return [
             'id' => $this->id,
             'customer_name' => $this->customer_name,
-            'driver_name' => $this->driver_name,
+            'driver_name' => $this->driver->name,
             'vehicle_id' => $this->vehicle->id,
             'vehicle_name' => $this->vehicle->name,
             'created_by' => $this->createdBy->name,

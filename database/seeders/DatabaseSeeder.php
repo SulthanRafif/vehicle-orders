@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(DriverSeeder::class);
 
         Vehicle::factory(5)->create()->each(function ($vehicle) {
             $vehicle->vehicleDetail()

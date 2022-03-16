@@ -39,8 +39,8 @@ class Vehicle extends Model
 
     public function scopeFilterByOrderDate(Builder $query, $date)
     {
-        return $query->when(!empty($date), function (BUilder $query) use ($date) {
-            return $query->where('created_at', $date);
+        return $query->when(!empty($date), function (Builder $query) use ($date) {
+            return $query->where('created_at', 'like', "%{$date}%");
         });
     }
 }

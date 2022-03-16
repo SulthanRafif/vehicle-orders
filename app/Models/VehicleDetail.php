@@ -13,7 +13,8 @@ class VehicleDetail extends Model
         'vehicle_id',
         'fuel_consumption',
         'service_schedule',
-        'number_of_usage'
+        'number_of_usage',
+        'vehicle_type'
     ];
 
     public function vehicle()

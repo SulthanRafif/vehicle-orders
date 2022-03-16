@@ -19,7 +19,7 @@ import {
     Thead,
     Tr
 } from "@chakra-ui/react";
-import { Link, usePage, useForm } from "@inertiajs/inertia-react";
+import { Link, usePage } from "@inertiajs/inertia-react";
 import { values } from "lodash";
 
 const Index = () => {

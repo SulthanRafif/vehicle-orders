@@ -24,6 +24,13 @@ export const LinkItems = [
         roles: [RoleType.admin]
     },
     {
+        name: "Data Pengemudi",
+        icon: FiDatabase,
+        urlPath: "/drivers",
+        isExact: false,
+        roles: [RoleType.admin]
+    },
+    {
         name: "Data Pemesanan Kendaraan",
         icon: FiDatabase,
         urlPath: "/vehicle-orders",

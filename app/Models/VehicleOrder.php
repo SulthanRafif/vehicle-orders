@@ -18,10 +18,15 @@ class VehicleOrder extends Model
         'updated_by',
         'order_date',
         'customer_name',
-        'driver_name',
+        'driver_id',
         'approval_one_status',
         'approval_two_status',
     ];
+
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class);
+    }
 
     public function vehicle()
     {

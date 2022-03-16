@@ -1,4 +1,5 @@
 import TextInput from '../../Components/TextInput';
+import SelectInput from '../../Components/SelectInput';
 import Layout from '../../Containers/Layout';
 import { FormLabel, FormControl, Box, Button, HStack, SimpleGrid } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
@@ -14,6 +15,7 @@ const Create = () => {
         name: "",
         fuel_consumption: "",
         service_schedule: "",
+        vehicle_type: "",
     });
 
     const handleSubmit = e => {
@@ -86,7 +88,14 @@ const Create = () => {
                             onChange={e => setData("service_schedule", e.target.value)}
                         />
 
-                        <div />
+                        <SelectInput
+                            name="vehicle_type"
+                            label="Tipe Kendaraan"
+                            defaultValue={data.vehicle_type}
+                            options={[{ name: 'angkutan orang', id: 'angkutan orang' }, { name: 'angkutan barang', id: 'angkutan barang' }]}
+                            errors={errors.vehicle_type}
+                            onChange={e => setData("vehicle_type", e.target.value)}
+                        />
 
                         <img src={image ? (image) : (defaultCarImage)} alt="Gambar Kendaraan" width="200" />
 

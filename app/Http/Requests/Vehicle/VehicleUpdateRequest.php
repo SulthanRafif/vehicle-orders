@@ -26,7 +26,8 @@ class VehicleUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'fuel_consumption' => ['required', 'integer'],
-            'service_schedule' => ['required']
+            'service_schedule' => ['required'],
+            'vehicle_type' => ['required', 'string'],
         ];
     }
 }

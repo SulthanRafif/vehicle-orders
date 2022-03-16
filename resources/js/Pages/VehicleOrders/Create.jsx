@@ -7,15 +7,18 @@ import { useForm, usePage } from "@inertiajs/inertia-react";
 import React from "react";
 
 const Create = () => {
-    const { vehicles, penyetujuSatu, penyetujuDua } = usePage().props;
+    const { vehicles, penyetujuSatu, penyetujuDua, driverName } = usePage().props;
     const { data, setData, post, processing, errors } = useForm({
         customer_name: "",
         vehicle_id: "",
         approval_one: "",
         approval_two: "",
         order_date: "",
-        driver_name: "",
+        driver_id: "",
     });
+
+
+    console.log((penyetujuSatu))
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -46,12 +49,13 @@ const Create = () => {
                             onChange={e => setData("customer_name", e.target.value)}
                         />
 
-                        <TextInput
-                            name="driver_name"
-                            label="Driver Name"
-                            value={data.driver_name}
-                            errors={errors.driver_name}
-                            onChange={e => setData("driver_name", e.target.value)}
+                        <SelectInput
+                            name="driver_id"
+                            label="Nama Pengemudi"
+                            defaultValue={data.driver_id}
+                            options={driverName}
+                            errors={errors.driver_id}
+                            onChange={e => setData("driver_id", e.target.value)}
                         />
 
                         <SelectInput

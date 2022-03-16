@@ -16,6 +16,7 @@ class VehicleController extends Controller
     public function index(Request $request)
     {
         $modelsVehicle = Vehicle::search($request->search)
+            ->filterByOrderDate($request->date)
             ->latest()
             ->paginate(5);
 
@@ -43,7 +44,7 @@ class VehicleController extends Controller
                 'name' => $request->name,
             ]);
 
-            $vehicle->vehicleDetail()->create(array_merge($request->only('fuel_consumption', 'service_schedule')));
+            $vehicle->vehicleDetail()->create(array_merge($request->only('fuel_consumption', 'service_schedule', 'vehicle_type')));
 
             $vehicle->imageVehicle()->create([
                 'image' => $image,
@@ -76,7 +77,7 @@ class VehicleController extends Controller
 
         DB::transaction(function () use ($request, $vehicle, $image) {
             $vehicle->update(array_merge($request->only('name')));
-            $vehicle->vehicleDetail()->update(array_merge($request->only('fuel_consumption', 'service_schedule')));
+            $vehicle->vehicleDetail()->update(array_merge($request->only('fuel_consumption', 'service_schedule', 'vehicle_type')));
 
             if ($image) {
                 if ($vehicle->imageVehicle()->get()->isEmpty()) {

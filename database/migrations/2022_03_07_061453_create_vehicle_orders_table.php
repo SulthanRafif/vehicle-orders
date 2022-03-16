@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('vehicle_orders', function (Blueprint $table) {
             $table->id();
             $table->string('customer_name');
-            $table->string('driver_name');
+            $table->foreignId('driver_id')->constrained()->cascadeOnDelete();
             $table->foreignId('vehicle_id')->constrained()->cascadeOnDelete();
             $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->cascadeOnDelete();
