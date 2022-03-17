@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('approval_two')->constrained('users')->cascadeOnDelete();
             $table->boolean('approval_two_status')->default(false)->comment('0=belum disetujui, 1=sudah disetujui');
             $table->date('order_date')->nullable();
+            $table->date('return_date')->nullable();
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('vehicle_type');
             $table->integer('fuel_consumption');
             $table->date('service_schedule');
+            $table->boolean('borrow_status')->default(false)->comment('0=belum kembali, 1=sudah kembali');
             $table->timestamps();
         });
     }

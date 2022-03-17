@@ -24,12 +24,16 @@ class VehicleOrderIndexResource extends JsonResource
             'updated_by_id' => $this->updatedBy->id,
             'updated_by' => optional($this->updatedBy)->name,
             'approval_one_name' => $this->approvalOne->name,
+            'approval_one_id' => $this->approvalOne->id,
             'approval_two_name' => $this->approvalTwo->name,
+            'approval_two_id' => $this->approvalTwo->id,
             'approval_one_status' => $this->approval_one_status,
             'approval_two_status' => $this->approval_two_status,
             'order_date' => $this->order_date,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'borrow_status' => $this->vehicle->vehicleDetail->borrow_status,
+            'return_date' => $this->return_date,
         ];
     }
 }

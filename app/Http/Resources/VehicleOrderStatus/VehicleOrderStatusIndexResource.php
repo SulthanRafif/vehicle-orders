@@ -28,9 +28,10 @@ class VehicleOrderStatusIndexResource extends JsonResource
             'order_date' => $this->order_date,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'return_status' => $this->return_status,
+            'borrow_status' => $this->vehicle->vehicleDetail->borrow_status,
             'approval_one_status' => $this->approval_one_status,
             'approval_two_status' => $this->approval_two_status,
+            'return_date' => $this->return_date,
         ];
     }
 }

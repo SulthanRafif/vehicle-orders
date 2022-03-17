@@ -21,14 +21,14 @@ export const LinkItems = [
         icon: FiDatabase,
         urlPath: "/vehicles",
         isExact: false,
-        roles: [RoleType.admin]
+        roles: [RoleType.admin, RoleType.penyetujuSatu, RoleType.penyetujuDua]
     },
     {
         name: "Data Pengemudi",
         icon: FiDatabase,
         urlPath: "/drivers",
         isExact: false,
-        roles: [RoleType.admin]
+        roles: [RoleType.admin, RoleType.penyetujuSatu, RoleType.penyetujuDua]
     },
     {
         name: "Data Pemesanan Kendaraan",

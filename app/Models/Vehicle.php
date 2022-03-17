@@ -26,7 +26,7 @@ class Vehicle extends Model
 
     public function vehicleDetail()
     {
-        return $this->hasOne(VehicleDetail::class, 'vehicle_id');
+        return $this->hasOne(VehicleDetail::class);
     }
 
     public function scopeSearch(Builder $query, $search)

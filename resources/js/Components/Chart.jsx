@@ -33,26 +33,22 @@ const Chart = ({ marginTop }) => {
 
     return (
         <div style={{ marginTop: marginTop, width: "700px" }}>
-            <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-4 mt-3">
-                <div className="grid gap-y-4 lg:col-span-1 col-span-2">
-                    <div className="chart-container flex flex-col p-3 rounded-lg h-full w-full bg-white h-1/2 shadow-lg p-4 mb-3">
-                        <h4 className="my-2 text-xl font-semibold">Jumlah Pemakaian Untuk Setiap Kendaraan</h4>
-                        <div className="lg:w-1/2 w-full self-center">
-                            <Bar
-                                style={{ marginBottom: 50 }}
-                                data={vehicleNumberData}
-                            />
-                        </div>
-                    </div>
-                    <div className="chart-container flex flex-col p-3 rounded-lg h-full w-full bg-white h-1/2 shadow-lg p-4 mb-3">
-                        <h4 className="my-2 text-xl font-semibold">Konsumsi Bensin Per Liter Untuk Setiap Kendaraan</h4>
-                        <div className="lg:w-1/2 w-full self-center">
-                            <Bar
-                                style={{ marginBottom: 50 }}
-                                data={vehicleConsumptionData}
-                            />
-                        </div>
-                    </div>
+            <div className="p-3 rounded-lg bg-white shadow-lg">
+                <h4 className="text-xl font-semibold mt-3">Jumlah Pemakaian Untuk Setiap Kendaraan</h4>
+                <div className="">
+                    <Bar
+                        style={{ marginBottom: 50 }}
+                        data={vehicleNumberData}
+                    />
+                </div>
+            </div>
+            <div className="p-3 rounded-lg bg-white shadow-lg mt-3">
+                <h4 className="text-xl font-semibold mt-3">Konsumsi Bensin Per Liter Untuk Setiap Kendaraan</h4>
+                <div className="">
+                    <Bar
+                        style={{ marginBottom: 50 }}
+                        data={vehicleConsumptionData}
+                    />
                 </div>
             </div>
         </div>

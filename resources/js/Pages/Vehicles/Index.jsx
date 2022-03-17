@@ -18,9 +18,10 @@ import {
 } from "@chakra-ui/react";
 import { Link, usePage } from "@inertiajs/inertia-react";
 import React from "react";
+import { values } from "lodash";
 
 const Index = () => {
-    const { vehicles } = usePage().props;
+    const { vehicles, auth } = usePage().props;
     const {
         data,
         meta: { links }
@@ -68,7 +69,7 @@ const Index = () => {
                             <Th>Konsumsi Bahan Bakar</Th>
                             <Th>Tanggal Masuk Kendaraan</Th>
                             <Th>Tanggal Service</Th>
-                            <Th>Action</Th>
+                            {values(auth.user.roles)[0] === 'admin' ? (<Th>Action</Th>) : <Th />}
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -84,7 +85,7 @@ const Index = () => {
                                     <Td>{vehicle.created_at}</Td>
                                     <Td>{vehicle.vehicle_details.service_schedule}</Td>
                                     <Td>
-                                        <TableRowAction id={vehicle.id} routeName="vehicles" isShow={false} />
+                                        {values(auth.user.roles)[0] === 'admin' ? (<TableRowAction id={vehicle.id} routeName="vehicles" isShow={false} />) : (<></>)}
                                     </Td>
                                 </Tr>
                             );

@@ -34,6 +34,8 @@ const Index = () => {
         Inertia.put(route("vehicle-orders.update-approval-status", vehicleOrderId))
     }
 
+    console.log(vehicleOrders);
+
     return (
         <Layout
             title="Data Pemesanan Kendaraan"
@@ -94,7 +96,9 @@ const Index = () => {
                             <Th>Status Persetujuan Satu</Th>
                             <Th>Penyetuju Dua</Th>
                             <Th>Status Persetujuan Dua</Th>
+                            <Th>Status Kendaraan</Th>
                             <Th>Tanggal Pinjam</Th>
+                            <Th>Tanggal Kembali</Th>
                             <Th>Action</Th>
                         </Tr>
                     </Thead>
@@ -111,16 +115,18 @@ const Index = () => {
                                     {vehicle.approval_one_status === 0 ? (<Td>Belum Disetujui</Td>) : (<Td>Sudah Disetujui</Td>)}
                                     <Td>{vehicle.approval_two_name}</Td>
                                     {vehicle.approval_two_status === 0 ? (<Td>Belum Disetujui</Td>) : (<Td>Sudah Disetujui</Td>)}
+                                    {vehicle.borrow_status === 0 ? (<Td>Tersedia</Td>) : (<Td>Sedang Dipinjam</Td>)}
                                     <Td>{vehicle.order_date}</Td>
+                                    {vehicle.return_date ? (<Td>{vehicle.return_date}</Td>) : (<Td>-</Td>)}
                                     <Td>
                                         {values(auth.user.roles)[0] === 'admin' ?
                                             (
                                                 <TableRowAction id={vehicle.id} routeName="vehicle-orders" isShow={false} />
                                             ) : (
-                                                values(auth.user.roles)[0] === 'penyetuju_satu' ?
+                                                vehicle.return_date === null ? (vehicle.borrow_status === 0 ? (values(auth.user.roles)[0] === 'penyetuju_satu' ?
                                                     (vehicle.approval_one_status === 0 && vehicle.approval_two_status === 0 ? (
 
-                                                        <Button
+                                                        vehicle.approval_one_id === auth.user.id ? (<Button
                                                             as={Link}
                                                             type="submit"
                                                             colorScheme="orange"
@@ -129,10 +135,10 @@ const Index = () => {
                                                             onClick={(event) => handleApprove(event, vehicle.id)}
                                                         >
                                                             Proses Persetujuan
-                                                        </Button>
+                                                        </Button>) : (<div></div>)
 
                                                     ) : (
-                                                        <Button
+                                                        vehicle.approval_one_id === auth.user.id ? (<Button
                                                             type="submit"
                                                             colorScheme="orange"
                                                             color="white"
@@ -140,9 +146,9 @@ const Index = () => {
                                                             isDisabled={true}
                                                         >
                                                             Proses Persetujuan
-                                                        </Button>
+                                                        </Button>) : (<div></div>)
                                                     )) : (vehicle.approval_one_status === 1 && vehicle.approval_two_status === 0 ? (
-                                                        <Button
+                                                        vehicle.approval_two_id === auth.user.id ? (<Button
                                                             as={Link}
                                                             type="submit"
                                                             colorScheme="orange"
@@ -151,14 +157,23 @@ const Index = () => {
                                                             onClick={(event) => handleApprove(event, vehicle.id)}
                                                         >
                                                             Proses Persetujuan
-                                                        </Button>) : (<Button
-                                                            as={Link}
+                                                        </Button>) : (<div></div>)) : (vehicle.approval_two_id === auth.user.id ? (<Button
+                                                            type="submit"
                                                             colorScheme="orange"
                                                             color="white"
+                                                            _hover={{ color: "black" }}
                                                             isDisabled={true}
                                                         >
                                                             Proses Persetujuan
-                                                        </Button>))
+                                                        </Button>) : (<div></div>)))) : (<Button
+                                                            type="submit"
+                                                            colorScheme="orange"
+                                                            color="white"
+                                                            _hover={{ color: "black" }}
+                                                            isDisabled={true}
+                                                        >
+                                                            Proses Persetujuan
+                                                        </Button>)) : (<div></div>)
 
                                             )
 

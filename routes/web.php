@@ -37,8 +37,14 @@ Route::middleware(['auth', 'role:' . RoleType::ADMIN . '|' . RoleType::PENYETUJU
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
     // Vehicle Orders
-    Route::resource('/vehicle-orders', VehicleOrderController::class)->except('show');
+    Route::get('/vehicle-orders', [VehicleOrderController::class, 'index'])->name('vehicle-orders.index');
     Route::put('/vehicle-orders/{vehicle_order}/update-approval-status', [VehicleOrderController::class, 'updateApprovalStatus'])->name('vehicle-orders.update-approval-status');
+
+    // Drivers
+    Route::get('/drivers', [DriverController::class, 'index'])->name('drivers.index');
+
+    // Vehicle
+    Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicles.index');
 
     // ADMIN //
     Route::middleware(['role:' . RoleType::ADMIN])->group(function () {
@@ -49,13 +55,28 @@ Route::middleware(['auth', 'role:' . RoleType::ADMIN . '|' . RoleType::PENYETUJU
         Route::get('/vehicle-orders/export', [VehicleOrderController::class, 'export'])->name('vehicle-orders.export');
 
         // Vehicles
-        Route::resource('/vehicles', VehicleController::class)->except('show');
+        Route::get('/vehicles/create', [VehicleController::class, 'create'])->name('vehicles.create');
+        Route::post('/vehicles', [VehicleController::class, 'store'])->name('vehicles.store');
+        Route::put('/vehicles/{vehicle}', [VehicleController::class, 'update'])->name('vehicles.update');
+        Route::get('/vehicles/{vehicle}/edit', [VehicleController::class, 'edit'])->name('vehicles.edit');
+        Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicles.destroy');
 
         // Drivers
-        Route::resource('/drivers', DriverController::class)->except('show');
+        Route::get('/drivers/create', [DriverController::class, 'create'])->name('drivers.create');
+        Route::post('/drivers', [DriverController::class, 'store'])->name('drivers.store');
+        Route::put('/drivers/{driver}', [DriverController::class, 'update'])->name('drivers.update');
+        Route::get('/drivers/{driver}/edit', [DriverController::class, 'edit'])->name('drivers.edit');
+        Route::delete('/drivers/{driver}', [DriverController::class, 'destroy'])->name('drivers.destroy');
 
         // Vehicle Order Statuses
         Route::get('/vehicle-order-statuses', [VehicleOrderStatusController::class, 'index'])->name('vehicle-order-statuses.index');
         Route::put('/vehicle-order-statuses/{vehicle_order}/update-return-status', [VehicleOrderStatusController::class, 'updateReturnStatus'])->name('vehicle-order-statuses.update-return-status');
+
+        // Vehicle Orders
+        Route::get('/vehicle-orders/create', [VehicleOrderController::class, 'create'])->name('vehicle-orders.create');
+        Route::post('/vehicle-orders', [VehicleOrderController::class, 'store'])->name('vehicle-orders.store');
+        Route::put('/vehicle-orders/{vehicle_order}', [VehicleOrderController::class, 'update'])->name('vehicle-orders.update');
+        Route::get('/vehicle-orders/{vehicle_order}/edit', [VehicleOrderController::class, 'edit'])->name('vehicle-orders.edit');
+        Route::delete('/vehicle-orders/{vehicle_order}', [VehicleOrderController::class, 'destroy'])->name('vehicle-orders.destroy');
     });
 });

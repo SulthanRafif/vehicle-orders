@@ -33,6 +33,8 @@ const Index = () => {
         Inertia.put(route("vehicle-order-statuses.update-return-status", vehicleOrderId))
     }
 
+    console.log(vehicleOrders);
+
     return (
         <Layout
             title="Data Kendaraan Yang Belum Kembali"
@@ -65,15 +67,15 @@ const Index = () => {
                             <Th>Nama Petugas</Th>
                             <Th>Penyetuju Satu</Th>
                             <Th>Penyetuju Dua</Th>
-                            <Th>Tanggal Pinjam</Th>
                             <Th>Status Kembali</Th>
+                            <Th>Tanggal Pinjam</Th>
                             <Th>Action</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
                         {data.map((vehicle, index) => {
                             {
-                                return vehicle.approval_two_status === 1 && vehicle.return_status === 0 ? (<Tr key={index + 1}>
+                                return vehicle.approval_two_status === 1 && vehicle.borrow_status === 1 && vehicle.return_date === null ? (<Tr key={index + 1}>
                                     <Td>{index + 1}</Td>
                                     <Td>{vehicle.vehicle_name}</Td>
                                     <Td>{vehicle.customer_name}</Td>
@@ -92,7 +94,7 @@ const Index = () => {
                                             _hover={{ color: "black" }}
                                             onClick={(event) => handleApprove(event, vehicle.id)}
                                         >
-                                            Proses Persetujuan
+                                            Proses Pengembalian
                                         </Button>
                                     </Td>
                                 </Tr>) : (<></>)

@@ -94,10 +94,10 @@ const Create = () => {
 
                         <Button
                             type="button"
-                            colorScheme="red"
+                            colorScheme="blue"
                             onClick={() => Inertia.get(route("users.index"))}
                         >
-                            Batalkan
+                            Kembali Ke Menu Data Pengguna
                         </Button>
                     </HStack>
                 </form>

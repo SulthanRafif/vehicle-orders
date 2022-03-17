@@ -18,7 +18,7 @@ const Create = () => {
 
     return (
         <Layout
-            title="Tambah Data Pengguna"
+            title="Edit Data Pengemudi"
         >
             <Box
                 p={4}
@@ -53,10 +53,10 @@ const Create = () => {
 
                         <Button
                             type="button"
-                            colorScheme="red"
+                            colorScheme="blue"
                             onClick={() => Inertia.get(route("drivers.index"))}
                         >
-                            Batalkan
+                            Kembali Ke Menu Data Pengemudi
                         </Button>
                     </HStack>
                 </form>

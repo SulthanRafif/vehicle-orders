@@ -131,10 +131,10 @@ const Edit = () => {
 
                         <Button
                             type="button"
-                            colorScheme="red"
+                            colorScheme="blue"
                             onClick={() => Inertia.get(route("vehicles.index"))}
                         >
-                            Batalkan
+                            Kembali Ke Menu Data Kendaraan
                         </Button>
                     </HStack>
                 </form>

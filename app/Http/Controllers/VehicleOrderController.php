@@ -39,8 +39,8 @@ class VehicleOrderController extends Controller
     public function create()
     {
         $driver_name = Driver::get();
-        $vehicles = Vehicle::whereHas('vehicleOrders', function ($q) {
-            $q->where('return_status', false)->where('approval_two_status', false);
+        $vehicles = Vehicle::whereHas('vehicleDetail', function ($q) {
+            $q->where('borrow_status', false);
         })->get();
         $penyetuju_satu =
             User::whereHas('roles', function ($q) {
@@ -67,12 +67,9 @@ class VehicleOrderController extends Controller
             'approval_one' => $request->approval_one,
             'approval_two' => $request->approval_two,
             'order_date' => $request->order_date,
-            'approval_one_status' => 0,
-            'approval_two_status' => 0,
             'created_by' => Auth::id(),
             'driver_id' => $request->driver_id,
             'updated_by' => Auth::id(),
-            'return_status' => 0,
         ]);
 
         return redirect()
@@ -114,8 +111,9 @@ class VehicleOrderController extends Controller
             'approval_two_status' => 0,
             'updated_by' => Auth::id(),
             'driver_id' => $request->driver_id,
-            'return_status' => 0,
         ]);
+
+        $vehicleOrder->vehicle()->find(1)->vehicleDetail()->update(['borrow_status' => false]);
 
         return redirect()
             ->route('vehicle-orders.index')
@@ -145,6 +143,8 @@ class VehicleOrderController extends Controller
                     'updated_by' => Auth::id()
                 ]);
 
+                VehicleDetail::where('vehicle_id', $vehicleOrder->vehicle->id)->update(['borrow_status' => true]);
+
                 VehicleDetail::where('vehicle_id', $vehicleOrder->vehicle->id)->increment('number_of_usage', 1);
             });
         }
@@ -156,7 +156,7 @@ class VehicleOrderController extends Controller
 
     public function export()
     {
-        $vehicle_orders = VehicleOrder::with('createdBy')->with('vehicle')->with('approvalOne')->with('approvalTwo')->get()->toArray();
+        $vehicle_orders = VehicleOrder::with('createdBy')->with('driver')->with('vehicle')->with('approvalOne')->with('approvalTwo')->get()->toArray();
 
         return Excel::download(new VehicleOrderExport($vehicle_orders), 'vehicle-order-reports-' . Str::random() . '.xlsx');
     }

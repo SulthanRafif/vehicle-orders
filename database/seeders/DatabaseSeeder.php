@@ -26,9 +26,10 @@ class DatabaseSeeder extends Seeder
                 ->saveMany(
                     VehicleDetail::factory(1)->make()
                 );
+            $vehicle->vehicleOrders()
+                ->saveMany(
+                    VehicleOrder::factory(1)->make()
+                );
         });
-
-
-        $this->call(VehicleOrderSeeder::class);
     }
 }
